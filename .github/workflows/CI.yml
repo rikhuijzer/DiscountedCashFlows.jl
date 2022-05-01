@@ -14,15 +14,13 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - '1.6'
           - '1'
         os:
           - ubuntu-latest
-          - macOS-latest
         arch:
           - x64
         include:
-          - version: '1'
+          - version: '1.6'
             os: windows-latest
             arch: x86
     timeout-minutes: 15

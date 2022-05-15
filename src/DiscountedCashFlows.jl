@@ -44,4 +44,6 @@ function dcf(initial_cash_flow::Real, cash_flow_growth::Real, n::Int, discount_r
     return dcf(flows, discount_rate)
 end
 
+include("precompile.jl")
+
 end # module

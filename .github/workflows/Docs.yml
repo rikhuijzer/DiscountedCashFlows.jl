@@ -18,6 +18,7 @@ jobs:
         shell: julia --color=yes {0}
         run: |
           using Pkg: Pkg
+          Pkg.develop(".")
           Pkg.activate("docs")
           Pkg.instantiate()
 

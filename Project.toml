@@ -3,7 +3,11 @@ uuid = "0b3b5864-5a78-4d35-bc49-055236b357d3"
 authors = ["Rik Huijzer <t.h.huijzer@rug.nl>"]
 version = "1.0.0"
 
+[deps]
+Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
+
 [compat]
+Formatting = "0.4"
 julia = "1.6"
 
 [extras]

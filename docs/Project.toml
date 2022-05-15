@@ -1,0 +1,6 @@
+[deps]
+DiscountedCashFlows = "0b3b5864-5a78-4d35-bc49-055236b357d3"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+
+[compat]
+Documenter = "0.27"

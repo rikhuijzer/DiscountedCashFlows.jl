@@ -1,6 +1,14 @@
 module DiscountedCashFlows
 
-export dcf
+using Formatting: format
+
+export dcf, print_underscores
+
+function print_underscores(x::Real)
+    with_underscores = replace(format(x; commas=true), ',' => '_')
+    println(with_underscores)
+    return nothing
+end
 
 """
     cash_flows(initial_cash_flow::Real, cash_flow_growth::Real, n::Int)
@@ -38,6 +46,25 @@ Return the discounted cash flow.
 - `n`: Number of years for which to calculate the annual cash flow.
 - `discount_rate`: The discount rate.
     For a 10% annual discount rate, pass 0.10.
+
+# Example
+```jldoctest
+julia> using DiscountedCashFlows
+
+julia> initial_cash_flow = 10_000;
+
+julia> growth_rate = 1.07;
+
+julia> discount_rate = 0.10;
+
+julia> n = 15;
+
+julia> dcf(initial_cash_flow, growth_rate, n, discount_rate)
+121091.8
+
+julia> print_underscores(ans)
+121_091.8
+```
 """
 function dcf(initial_cash_flow::Real, cash_flow_growth::Real, n::Int, discount_rate::Real)
     flows = cash_flows(initial_cash_flow, cash_flow_growth, n)

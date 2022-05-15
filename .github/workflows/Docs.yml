@@ -42,10 +42,9 @@ jobs:
         with:
           ref: 'docs'
 
-      - uses: shimataro/ssh-key-action@b38d88da8a7a230d5eeefd879b038cf3cc4a362c # 2.3.1
+      - uses: webfactory/ssh-agent@v0.5.4
         with:
-          key: ${{ secrets.DEPLOY_KEY }}
-          known_hosts: ""
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy to https://huijzer.xyz/DiscountedCashFlows.jl
         shell: julia --color=yes {0}

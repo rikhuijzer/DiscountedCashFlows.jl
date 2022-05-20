@@ -55,9 +55,9 @@ julia> initial_cash_flow = 10_000;
 
 julia> growth_rate = 1.07;
 
-julia> discount_rate = 0.10;
-
 julia> n = 15;
+
+julia> discount_rate = 0.10;
 
 julia> dcf(initial_cash_flow, growth_rate, n, discount_rate)
 121091.8

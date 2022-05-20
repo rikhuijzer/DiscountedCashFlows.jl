@@ -18,7 +18,7 @@ dcf
 For example, this package can be used to reproduce the Costco discounted cash flow calculation reported in the Nomad letters.
 The Nomad Investement Partnership is known for an annual return for over 20% for 20 years.
 One of their best decisions was to invest in Costco.
-In the Nomad letters on page 53, they expect a normalised growth of 13%.
+In the Nomad letters on page 53, they expect a normalized growth of 13%.
 According to their calculations published at the year end of 2004:
 
 - **7%** growth gives a discounted share price of **\$43**.

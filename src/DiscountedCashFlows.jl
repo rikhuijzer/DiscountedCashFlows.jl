@@ -43,7 +43,7 @@ struct DiscountedCashFlow
 end
 
 function show(io::IO, ::MIME"text/plain", d::DiscountedCashFlow)
-    header = ["Initial cash flow", "Cash Flow Growth", "Number of years", "Discount Rate", "Discounted"]
+    header = ["Initial cash flow", "Cash Flow Growth", "Number of Years", "Discount Rate", "Discounted"]
     discounted = round(Int, d.discounted)
     values = [_with_commas(d.initial_cash_flow), d.cash_flow_growth, d.n, d.discount_rate, _with_commas(discounted)]
     data = hcat(values...)

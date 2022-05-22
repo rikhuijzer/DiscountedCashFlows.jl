@@ -76,9 +76,9 @@ julia> discount_rate = 0.10;
 
 julia> dcf(initial_cash_flow, growth_rate, n, discount_rate)
 ┌───────────────────┬──────────────────┬─────────────────┬───────────────┬────────────┐
-│ Initial cash flow │ Cash Flow Growth │ Number of years │ Discount Rate │ Discounted │
+│ Initial cash flow │ Cash Flow Growth │ Number of Years │ Discount Rate │ Discounted │
 ├───────────────────┼──────────────────┼─────────────────┼───────────────┼────────────┤
-│            10,000 │             1.07 │              15 │           0.1 │  121,091.8 │
+│            10,000 │             1.07 │              15 │           0.1 │    121,092 │
 └───────────────────┴──────────────────┴─────────────────┴───────────────┴────────────┘
 ```
 """

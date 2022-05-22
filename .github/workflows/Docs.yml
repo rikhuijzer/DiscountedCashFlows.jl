@@ -16,7 +16,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-docdeploy@v1
-        prefix: "DISPLAY=:0 xvfb-run -s '-screen 0 1024x768x24'"
+        with:
+          prefix: "DISPLAY=:0 xvfb-run -s '-screen 0 1024x768x24'"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

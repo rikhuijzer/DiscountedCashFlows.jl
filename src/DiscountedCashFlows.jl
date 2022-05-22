@@ -1,14 +1,13 @@
 module DiscountedCashFlows
 
+import Base: show
+
 using Formatting: format
+using PrettyTables: pretty_table
 
-export dcf, print_underscores
+export dcf
 
-function print_underscores(x::Real)
-    with_underscores = replace(format(x; commas=true), ',' => '_')
-    println(with_underscores)
-    return nothing
-end
+_with_commas(x::Real) = format(x; commas=true)
 
 """
     cash_flows(initial_cash_flow::Real, cash_flow_growth::Real, n::Int)
@@ -25,7 +24,7 @@ function cash_flows(initial_cash_flow::Real, cash_flow_growth::Real, n::Int)
     return [initial_cash_flow * cash_flow_growth^i for i in 1:n]
 end
 
-function dcf(cash_flows::AbstractVector{<:Real}, discount_rate::Real)
+function _dcf(cash_flows::AbstractVector{<:Real}, discount_rate::Real)
     out = 0.0
     for (year, cash_flow) in enumerate(cash_flows)
         denom = (1 + discount_rate)^year
@@ -33,6 +32,22 @@ function dcf(cash_flows::AbstractVector{<:Real}, discount_rate::Real)
         out += discounted
     end
     return round(out; digits=1)
+end
+
+struct DiscountedCashFlow
+    initial_cash_flow::Real
+    cash_flow_growth::Real
+    n::Int
+    discount_rate::Real
+    discounted::Real
+end
+
+function show(io::IO, ::MIME"text/plain", d::DiscountedCashFlow)
+    header = ["Initial cash flow", "Cash Flow Growth", "Number of Years", "Discount Rate", "Discounted"]
+    discounted = round(Int, d.discounted)
+    values = [_with_commas(d.initial_cash_flow), d.cash_flow_growth, d.n, d.discount_rate, _with_commas(discounted)]
+    data = hcat(values...)
+    pretty_table(io, data, header)
 end
 
 """
@@ -60,15 +75,17 @@ julia> n = 15;
 julia> discount_rate = 0.10;
 
 julia> dcf(initial_cash_flow, growth_rate, n, discount_rate)
-121091.8
-
-julia> print_underscores(ans)
-121_091.8
+┌───────────────────┬──────────────────┬─────────────────┬───────────────┬────────────┐
+│ Initial cash flow │ Cash Flow Growth │ Number of Years │ Discount Rate │ Discounted │
+├───────────────────┼──────────────────┼─────────────────┼───────────────┼────────────┤
+│            10,000 │             1.07 │              15 │           0.1 │    121,092 │
+└───────────────────┴──────────────────┴─────────────────┴───────────────┴────────────┘
 ```
 """
 function dcf(initial_cash_flow::Real, cash_flow_growth::Real, n::Int, discount_rate::Real)
     flows = cash_flows(initial_cash_flow, cash_flow_growth, n)
-    return dcf(flows, discount_rate)
+    discounted = _dcf(flows, discount_rate)
+    return DiscountedCashFlow(initial_cash_flow, cash_flow_growth, n, discount_rate, discounted)
 end
 
 include("precompile.jl")

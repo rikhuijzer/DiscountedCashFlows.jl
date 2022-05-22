@@ -36,56 +36,56 @@ end
 
 struct DiscountedCashFlow
     initial_cash_flow::Real
-    cash_flow_growth::Real
-    n::Int
     discount_rate::Real
+    n::Int
+    growth_rate::Real
     discounted::Real
 end
 
 function show(io::IO, ::MIME"text/plain", d::DiscountedCashFlow)
-    header = ["Initial cash flow", "Cash Flow Growth", "Number of Years", "Discount Rate", "Discounted"]
+    header = ["Initial", "Discount Rate", "Number of Years", "Growth Rate", "Discounted"]
     discounted = round(Int, d.discounted)
-    values = [_with_commas(d.initial_cash_flow), d.cash_flow_growth, d.n, d.discount_rate, _with_commas(discounted)]
+    values = [_with_commas(d.initial_cash_flow), d.discount_rate, d.n, d.growth_rate, _with_commas(discounted)]
     data = hcat(values...)
     pretty_table(io, data, header)
 end
 
 """
-    dcf(initial_cash_flow::Real, cash_flow_growth::Real, n::Int, discount_rate::Real)
+    dcf(initial::Real, discount_rate::Real, n::Int, growth_rate::Real)
 
 Return the discounted cash flow.
 
-- `initial_cash_flow`: The cash flow in year 1.
-- `cash_flow_growth`: The estimated annual cash flow growth.
-    For a 10% annual growth, pass 1.10.
-- `n`: Number of years for which to calculate the annual cash flow.
+- `initial`: The cash flow in year 1.
 - `discount_rate`: The discount rate.
     For a 10% annual discount rate, pass 0.10.
+- `n`: Number of years for which to calculate the annual cash flow.
+- `growth_rate`: The estimated annual cash flow growth.
+    For a 10% annual growth, pass 1.10.
 
 # Example
 ```jldoctest
 julia> using DiscountedCashFlows
 
-julia> initial_cash_flow = 10_000;
-
-julia> growth_rate = 1.07;
-
-julia> n = 15;
+julia> initial = 10_000;
 
 julia> discount_rate = 0.10;
 
-julia> dcf(initial_cash_flow, growth_rate, n, discount_rate)
-┌───────────────────┬──────────────────┬─────────────────┬───────────────┬────────────┐
-│ Initial cash flow │ Cash Flow Growth │ Number of Years │ Discount Rate │ Discounted │
-├───────────────────┼──────────────────┼─────────────────┼───────────────┼────────────┤
-│            10,000 │             1.07 │              15 │           0.1 │    121,092 │
-└───────────────────┴──────────────────┴─────────────────┴───────────────┴────────────┘
+julia> n = 15;
+
+julia> growth_rate = 1.07;
+
+julia> dcf(initial, discount_rate, n, growth_rate)
+┌─────────┬───────────────┬─────────────────┬─────────────┬────────────┐
+│ Initial │ Discount Rate │ Number of Years │ Growth Rate │ Discounted │
+├─────────┼───────────────┼─────────────────┼─────────────┼────────────┤
+│  10,000 │           0.1 │              15 │        1.07 │    121,092 │
+└─────────┴───────────────┴─────────────────┴─────────────┴────────────┘
 ```
 """
-function dcf(initial_cash_flow::Real, cash_flow_growth::Real, n::Int, discount_rate::Real)
-    flows = cash_flows(initial_cash_flow, cash_flow_growth, n)
+function dcf(initial::Real, discount_rate::Real, n::Int, growth_rate::Real)
+    flows = cash_flows(initial, growth_rate, n)
     discounted = _dcf(flows, discount_rate)
-    return DiscountedCashFlow(initial_cash_flow, cash_flow_growth, n, discount_rate, discounted)
+    return DiscountedCashFlow(initial, discount_rate, n, growth_rate, discounted)
 end
 
 include("precompile.jl")

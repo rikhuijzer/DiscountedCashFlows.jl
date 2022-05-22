@@ -11,7 +11,8 @@ const _dcf = DiscountedCashFlows._dcf
 
 @test DiscountedCashFlows.cash_flows(10, 1.1, 2) == [10 * 1.1, 10 * 1.1^2]
 
-growth_rate = 1.07
+initial = 4
 discount_rate = 0.10
-nyears = 15
-@test dcf(4, growth_rate, nyears, discount_rate).discounted == 48.4
+n = 15
+growth_rate = 1.07
+@test dcf(initial, discount_rate, n, growth_rate).discounted == 48.4

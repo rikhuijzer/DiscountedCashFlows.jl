@@ -24,7 +24,7 @@ jobs:
           Pkg.instantiate()
 
       - name: Build docs and deploy to the docs branch
-        shell: julia --color=yes DISPLAY=:0 xvfb-run -s '-screen 0 1024x768x24' {0}
+        shell: DISPLAY=:0 xvfb-run -s '-screen 0 1024x768x24' julia --color=yes {0}
         run: |
           using Pkg: Pkg
           dir = pwd()

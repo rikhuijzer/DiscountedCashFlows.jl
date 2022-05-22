@@ -49,7 +49,7 @@ initial_cash_flow = round(margin_of_safety * cash_flow_per_share; digits=2)
 ```
 
 ```@example costco
-flows = [growth_rate => dcf(initial_cash_flow, growth_rate, n, discount_rate) for growth_rate in growth_rates]
+flows = [growth_rate => dcf(initial_cash_flow, growth_rate, n, discount_rate).discounted for growth_rate in growth_rates]
 ```
 
 Which is very close to the numbers calculated by Nick Sleep and Qais Zakaria.

@@ -49,7 +49,7 @@ initial_cash_flow = round(margin_of_safety * cash_flow_per_share; digits=2)
 ```
 
 ```@example costco
-flows = [growth_rate => dcf(initial_cash_flow, growth_rate, n, discount_rate).discounted for growth_rate in growth_rates]
+flows = [growth_rate => dcf(initial_cash_flow, discount_rate, n, growth_rate).discounted for growth_rate in growth_rates]
 ```
 
 Which is very close to the numbers calculated by Nick Sleep and Qais Zakaria.
@@ -57,4 +57,3 @@ The difference is likely caused by me arriving at slightly different numbers the
 
 Note that Nick and Qais bought the shares for an average price of \$39 which only discounted a modest growth of 5 to 6% per year according to them.
 So, they argued that buying Costco at that time was a very good deal which turned out to be true.
-

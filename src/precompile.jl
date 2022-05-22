@@ -1,6 +1,5 @@
-# A small workload which runs during the precompilation phase.
-# Thanks to this, answers are produced quicker when loading the package.
+# A small workload to force some precompilation.
 if ccall(:jl_generating_output, Cint, ()) == 1
-    dcf(10_000, 1.1, 10, 0.1)
-    dcf(10_000.0, 1.1, 10, 0.1)
+    dcf(10_000, 0.1, 10, 1.1)
+    dcf(10_000.0, 0.1, 10, 1.1)
 end

@@ -10,7 +10,8 @@ on:
 jobs:
   BuildAndDeploy:
     name: Documentation
-    permissions: write-all
+    permissions:
+      pages: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
